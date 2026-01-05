@@ -1,16 +1,23 @@
 import * as React from "react"
+import { Button as MuiButton, ButtonProps as MuiButtonProps } from "@mui/material"
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<MuiButtonProps, 'variant'> {
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
-  size?: "default" | "sm" | "lg" | "icon"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, ...props }, ref) => {
+  ({ variant = "default", ...props }, ref) => {
+    // Map custom variants to MUI variants
+    const muiVariant = variant === "outline" ? "outlined" : 
+                       variant === "ghost" || variant === "link" ? "text" :
+                       "contained"
+    
+    const color = variant === "destructive" ? "error" : "primary"
+    
     return (
-      <button
-        className={className}
+      <MuiButton
+        variant={muiVariant}
+        color={color}
         ref={ref}
         {...props}
       />

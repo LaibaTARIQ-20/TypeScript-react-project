@@ -1,14 +1,16 @@
 import * as React from "react"
+import { TextField, TextFieldProps } from "@mui/material"
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface InputProps extends Omit<TextFieldProps, 'variant'> {
+  variant?: "outlined" | "filled" | "standard"
+}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+const Input = React.forwardRef<HTMLDivElement, InputProps>(
+  ({ variant = "outlined", ...props }, ref) => {
     return (
-      <input
-        type={type}
-        className={className}
+      <TextField
+        variant={variant}
+        fullWidth
         ref={ref}
         {...props}
       />

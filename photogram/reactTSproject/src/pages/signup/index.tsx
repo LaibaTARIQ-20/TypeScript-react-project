@@ -18,6 +18,7 @@ import { UserSignIn } from "@/types";
 import { Label } from "@/components/ui/label";
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Box, Container, Grid, Divider, Stack, Typography } from "@mui/material";
 
 const initialValue: UserSignIn = {
   email: "",
@@ -40,7 +41,7 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
       console.log("Error : ", error);
     }
   };
-  const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       console.log("The user info is : ", userInfo);
@@ -51,27 +52,35 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
     }
   };
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <img
+    <Box sx={{ bgcolor: 'grey.800', width: '100%', minHeight: '100vh' }}>
+      <Container maxWidth="lg" sx={{ py: 3, height: '100%', display: 'flex' }}>
+        <Grid container spacing={4} sx={{ alignItems: 'center', height: '100%' }}>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
+              <Box
+                component="img"
                 src={image2}
+                sx={{ width: '100%', height: 'auto', borderRadius: 1 }}
               />
-              <img
+              <Box
+                component="img"
                 src={image1}
+                sx={{ width: '100%', height: 'auto', borderRadius: 1 }}
               />
-              <img
+              <Box
+                component="img"
                 src={image4}
+                sx={{ width: '100%', height: 'auto', borderRadius: 1 }}
               />
-              <img
+              <Box
+                component="img"
                 src={image3}
+                sx={{ width: '100%', height: 'auto', borderRadius: 1 }}
               />
-            </div>
-          </div>
-          <div>
-            <Card>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ maxWidth: 500, mx: 'auto' }}>
               <form onSubmit={handleSubmit}>
                 <CardHeader>
                   <CardTitle>
@@ -82,76 +91,71 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div>
-                    <Button variant="outline" onClick={handleGoogleSignIn}>
+                  <Stack spacing={3}>
+                    <Button variant="outline" onClick={handleGoogleSignIn} fullWidth>
                       <Icons.google style={{ marginRight: '8px', height: '16px', width: '16px' }} />
                       Google
                     </Button>
-                  </div>
-                  <div>
-                    <div>
-                      <span />
-                    </div>
-                    <div>
-                      <span>
+                    <Divider>
+                      <Typography variant="body2" color="text.secondary">
                         Or
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email address</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="dipesh@example.com"
-                      value={userInfo.email}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({ ...userInfo, email: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Password"
-                      value={userInfo.password}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({ ...userInfo, password: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="confirmpassword">Confirm password</Label>
-                    <Input
-                      id="confirmpassword"
-                      type="password"
-                      placeholder="Confirm password"
-                      value={userInfo.confirmPassword}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setUserInfo({
-                          ...userInfo,
-                          confirmPassword: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
+                      </Typography>
+                    </Divider>
+                    <Box>
+                      <Label htmlFor="email">Email address</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="dipesh@example.com"
+                        value={userInfo.email}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setUserInfo({ ...userInfo, email: e.target.value })
+                        }
+                      />
+                    </Box>
+                    <Box>
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        value={userInfo.password}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setUserInfo({ ...userInfo, password: e.target.value })
+                        }
+                      />
+                    </Box>
+                    <Box>
+                      <Label htmlFor="confirmpassword">Confirm password</Label>
+                      <Input
+                        id="confirmpassword"
+                        type="password"
+                        placeholder="Confirm password"
+                        value={userInfo.confirmPassword}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setUserInfo({
+                            ...userInfo,
+                            confirmPassword: e.target.value,
+                          })
+                        }
+                      />
+                    </Box>
+                  </Stack>
                 </CardContent>
-                <CardFooter>
-                  <Button type="submit">
+                <CardFooter sx={{ flexDirection: 'column', alignItems: 'stretch', gap: 2 }}>
+                  <Button type="submit" fullWidth>
                     Sign Up
                   </Button>
-                  <p>
-                    Already have an account ? <Link to="/login">Login</Link>
-                  </p>
+                  <Typography variant="body2" textAlign="center">
+                    Already have an account ? <Link to="/login" style={{ color: '#1976d2' }}>Login</Link>
+                  </Typography>
                 </CardFooter>
               </form>
             </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

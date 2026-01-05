@@ -1,13 +1,18 @@
 import * as React from "react"
+import { TextField, TextFieldProps } from "@mui/material"
 
-export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export interface TextareaProps extends Omit<TextFieldProps, 'variant' | 'multiline'> {
+  variant?: "outlined" | "filled" | "standard"
+}
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, ...props }, ref) => {
+const Textarea = React.forwardRef<HTMLDivElement, TextareaProps>(
+  ({ variant = "outlined", rows = 4, ...props }, ref) => {
     return (
-      <textarea
-        className={className}
+      <TextField
+        multiline
+        rows={rows}
+        variant={variant}
+        fullWidth
         ref={ref}
         {...props}
       />
