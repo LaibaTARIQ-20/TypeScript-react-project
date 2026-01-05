@@ -29,7 +29,7 @@ interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode
 }
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
+const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, ...props }, ref) => (
     <Typography variant="h5" component="h3" ref={ref} {...props}>
       {children}
