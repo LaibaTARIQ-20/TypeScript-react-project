@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ICreatePostProps {}
 
-const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
+const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
@@ -30,9 +30,11 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
     e.preventDefault();
     console.log("Uploaded File Entry : ", fileEntry.files);
     console.log("The create post is : ", post);
-    const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
-      return { cdnUrl: file.cdnUrl, uuid: file.uuid };
-    });
+    const photoMeta: PhotoMeta[] = fileEntry.files
+      .filter((file) => file.cdnUrl && file.uuid)
+      .map((file) => {
+        return { cdnUrl: file.cdnUrl as string, uuid: file.uuid as string };
+      });
     if (user != null) {
       const newPost: Post = {
         ...post,
@@ -49,19 +51,18 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
 
   return (
     <Layout>
-      <div className="flex justify-center">
-        <div className="border max-w-3xl w-full">
-          <h3 className="bg-slate-800 text-white text-center text-lg p-2">
+      <div>
+        <div>
+          <h3>
             Create Post
           </h3>
-          <div className="p-8">
+          <div>
             <form onSubmit={handleSubmit}>
-              <div className="flex flex-col">
-                <Label className="mb-4" htmlFor="caption">
+              <div>
+                <Label htmlFor="caption">
                   Photo Caption
                 </Label>
                 <Textarea
-                  className="mb-8"
                   id="caption"
                   placeholder="what's in your photo!"
                   value={post.caption}
@@ -70,13 +71,13 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
                   }
                 />
               </div>
-              <div className="flex flex-col">
-                <Label className="mb-4" htmlFor="photo">
+              <div>
+                <Label htmlFor="photo">
                   Photos
                 </Label>
                 <FileUploader fileEntry={fileEntry} onChange={setFileEntry} />
               </div>
-              <Button className="mt-8 w-32" type="submit">
+              <Button type="submit">
                 Post
               </Button>
             </form>

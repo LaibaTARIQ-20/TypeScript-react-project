@@ -15,7 +15,7 @@ import image2 from "@/assets/images/image2.jpg";
 import image3 from "@/assets/images/image3.jpg";
 import image4 from "@/assets/images/image4.jpg";
 import { UserSignIn } from "@/types";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@/components/ui/label";
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -51,58 +51,54 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
     }
   };
   return (
-    <div className="bg-slate-800 w-full h-screen">
-      <div className="container mx-auto p-6 flex h-full">
-        <div className="flex justify-center items-center w-full">
-          <div className="p-6 w-2/3 hidden lg:block">
-            <div className="grid grid-cols-2 gap-2">
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
               <img
-                className=" w-2/3 h-auto aspect-video rounded-3xl place-self-end"
                 src={image2}
               />
               <img
-                className=" w-2/4 h-auto aspect-auto rounded-3xl"
                 src={image1}
               />
               <img
-                className=" w-2/4 h-auto aspect-auto rounded-3xl place-self-end"
                 src={image4}
               />
               <img
-                className=" w-2/3 h-auto aspect-video rounded-3xl"
                 src={image3}
               />
             </div>
           </div>
-          <div className="max-w-sm rounded-xl border bg-card text-card-foreground shadow-sm">
+          <div>
             <Card>
               <form onSubmit={handleSubmit}>
-                <CardHeader className="space-y-1">
-                  <CardTitle className="text-2xl text-center mb-4">
+                <CardHeader>
+                  <CardTitle>
                     PhotoGram
                   </CardTitle>
                   <CardDescription>
                     Enter your email below to create your account
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-4">
-                  <div className="grid">
+                <CardContent>
+                  <div>
                     <Button variant="outline" onClick={handleGoogleSignIn}>
-                      <Icons.google className="mr-2 h-4 w-4" />
+                      <Icons.google style={{ marginRight: '8px', height: '16px', width: '16px' }} />
                       Google
                     </Button>
                   </div>
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t" />
+                  <div>
+                    <div>
+                      <span />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">
+                    <div>
+                      <span>
                         Or
                       </span>
                     </div>
                   </div>
-                  <div className="grid gap-2">
+                  <div>
                     <Label htmlFor="email">Email address</Label>
                     <Input
                       id="email"
@@ -114,7 +110,7 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                       }
                     />
                   </div>
-                  <div className="grid gap-2">
+                  <div>
                     <Label htmlFor="password">Password</Label>
                     <Input
                       id="password"
@@ -126,7 +122,7 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                       }
                     />
                   </div>
-                  <div className="grid gap-2">
+                  <div>
                     <Label htmlFor="confirmpassword">Confirm password</Label>
                     <Input
                       id="confirmpassword"
@@ -142,11 +138,11 @@ const Signup: React.FunctionComponent<ISignupProps> = () => {
                     />
                   </div>
                 </CardContent>
-                <CardFooter className="flex flex-col">
-                  <Button className="w-full" type="submit">
+                <CardFooter>
+                  <Button type="submit">
                     Sign Up
                   </Button>
-                  <p className="mt-3 text-sm text-center">
+                  <p>
                     Already have an account ? <Link to="/login">Login</Link>
                   </p>
                 </CardFooter>
