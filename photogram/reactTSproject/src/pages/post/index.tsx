@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ICreatePostProps {}
 
-const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
+const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
@@ -30,9 +30,11 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
     e.preventDefault();
     console.log("Uploaded File Entry : ", fileEntry.files);
     console.log("The create post is : ", post);
-    const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
-      return { cdnUrl: file.cdnUrl, uuid: file.uuid };
-    });
+    const photoMeta: PhotoMeta[] = fileEntry.files
+      .filter((file) => file.cdnUrl && file.uuid)
+      .map((file) => {
+        return { cdnUrl: file.cdnUrl as string, uuid: file.uuid as string };
+      });
     if (user != null) {
       const newPost: Post = {
         ...post,
